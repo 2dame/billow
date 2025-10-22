@@ -1,0 +1,50 @@
+{
+  "name": "billow-client",
+  "version": "1.0.0",
+  "description": "Billow frontend client",
+  "type": "module",
+  "keywords": ["billow", "productivity", "react", "vite", "typescript", "tailwindcss"],
+  "author": "Damion Broussard <2dame>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2dame/billow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/2dame/billow/issues"
+  },
+  "homepage": "https://github.com/2dame/billow#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "format": "prettier --write src/**/*.{ts,tsx}"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1",
+    "axios": "^1.6.5",
+    "socket.io-client": "^4.6.1",
+    "chart.js": "^4.4.1",
+    "react-chartjs-2": "^5.2.0",
+    "date-fns": "^3.0.6"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.33",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1"
+  }
+}
+

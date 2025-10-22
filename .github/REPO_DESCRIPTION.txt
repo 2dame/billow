@@ -1,0 +1,1 @@
+Billow — Your data, reflected. A full-stack productivity & reflection app with intelligent insights, real-time Focus Mode, and production-grade PostgreSQL operations (partitioning, RLS, CDC). Built with React, TypeScript, Express, Socket.io, and Tailwind CSS.

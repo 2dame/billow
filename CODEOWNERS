@@ -1,0 +1,11 @@
+# Code owners for Billow
+# These owners will be requested for review when PRs are opened
+
+* @2dame
+
+# Database schema changes require extra scrutiny
+/db/ @2dame
+
+# CI/CD changes
+/.github/ @2dame
+

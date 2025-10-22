@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-dark-border;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-dark-bg text-dark-text;
+  }
+
+  input, textarea, select {
+    @apply bg-dark-card border border-dark-border text-dark-text rounded-lg px-3 py-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-dark-accent focus:border-transparent;
+    @apply transition-all duration-200;
+  }
+
+  button {
+    @apply rounded-lg px-4 py-2 font-medium transition-all duration-200;
+    @apply hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-bg;
+  }
+
+  button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-dark-accent text-white hover:bg-blue-600;
+    @apply focus:ring-dark-accent;
+  }
+
+  .btn-secondary {
+    @apply bg-dark-card border border-dark-border text-dark-text;
+    @apply hover:bg-dark-hover focus:ring-dark-border;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+    @apply focus:ring-red-600;
+  }
+
+  .card {
+    @apply bg-dark-card border border-dark-border rounded-xl p-6;
+    @apply shadow-lg shadow-black/20;
+  }
+
+  .card-hover {
+    @apply card hover:bg-dark-hover hover:border-dark-accent/30 cursor-pointer;
+    @apply transition-all duration-200;
+  }
+
+  .input-group {
+    @apply space-y-2;
+  }
+
+  .label {
+    @apply text-sm font-medium text-dark-muted;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-todo {
+    @apply bg-gray-800 text-gray-300;
+  }
+
+  .badge-in_progress {
+    @apply bg-blue-900/50 text-blue-300;
+  }
+
+  .badge-done {
+    @apply bg-green-900/50 text-green-300;
+  }
+
+  .badge-low {
+    @apply bg-gray-800 text-gray-400;
+  }
+
+  .badge-medium {
+    @apply bg-yellow-900/50 text-yellow-300;
+  }
+
+  .badge-high {
+    @apply bg-orange-900/50 text-orange-300;
+  }
+
+  .badge-urgent {
+    @apply bg-red-900/50 text-red-300;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-dark-border rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-dark-muted;
+}
+

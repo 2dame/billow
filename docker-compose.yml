@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: billow_db
+    environment:
+      POSTGRES_USER: billow
+      POSTGRES_PASSWORD: billow
+      POSTGRES_DB: billow
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U billow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: billow_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@billow.dev
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+networks:
+  default:
+    name: billow_network
+

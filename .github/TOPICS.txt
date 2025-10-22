@@ -1,0 +1,16 @@
+typescript
+react
+nodejs
+express
+postgresql
+socketio
+tailwindcss
+vite
+productivity
+reflection
+cdc
+rls
+partitioning
+fullstack
+jwt-authentication
+
