@@ -1,0 +1,16 @@
+node_modules
+dist
+.env
+.env.local
+*.log
+coverage
+.vscode
+.idea
+README.md
+Dockerfile
+docker-compose.yml
+__tests__
+*.test.ts
+*.spec.ts
+jest.config.cjs
+
