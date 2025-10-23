@@ -8,10 +8,10 @@ import { AuthRequest } from '../middleware';
 
 const router = Router();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-in-production';
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'dev-refresh-secret';
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
-const JWT_REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || '30d';
+const JWT_SECRET: string = process.env.JWT_SECRET || 'dev-secret-change-in-production';
+const JWT_REFRESH_SECRET: string = process.env.JWT_REFRESH_SECRET || 'dev-refresh-secret';
+const JWT_EXPIRES_IN: string = process.env.JWT_EXPIRES_IN || '7d';
+const JWT_REFRESH_EXPIRES_IN: string = process.env.JWT_REFRESH_EXPIRES_IN || '30d';
 
 /**
  * POST /auth/register
@@ -54,14 +54,14 @@ router.post('/register', validate(registerSchema), async (req, res, next) => {
     // Generate tokens
     const accessToken = jwt.sign(
       { userId: user.id, email: user.email, isGuest: false },
-      JWT_SECRET,
-      { expiresIn: JWT_EXPIRES_IN }
+      JWT_SECRET as jwt.Secret,
+      { expiresIn: JWT_EXPIRES_IN } as jwt.SignOptions
     );
 
     const refreshToken = jwt.sign(
       { userId: user.id },
-      JWT_REFRESH_SECRET,
-      { expiresIn: JWT_REFRESH_EXPIRES_IN }
+      JWT_REFRESH_SECRET as jwt.Secret,
+      { expiresIn: JWT_REFRESH_EXPIRES_IN } as jwt.SignOptions
     );
 
     logger.info({ userId: user.id, email }, 'User registered');
@@ -113,14 +113,14 @@ router.post('/login', validate(loginSchema), async (req, res, next) => {
     // Generate tokens
     const accessToken = jwt.sign(
       { userId: user.id, email: user.email, isGuest: user.is_guest },
-      JWT_SECRET,
-      { expiresIn: JWT_EXPIRES_IN }
+      JWT_SECRET as jwt.Secret,
+      { expiresIn: JWT_EXPIRES_IN } as jwt.SignOptions
     );
 
     const refreshToken = jwt.sign(
       { userId: user.id },
-      JWT_REFRESH_SECRET,
-      { expiresIn: JWT_REFRESH_EXPIRES_IN }
+      JWT_REFRESH_SECRET as jwt.Secret,
+      { expiresIn: JWT_REFRESH_EXPIRES_IN } as jwt.SignOptions
     );
 
     logger.info({ userId: user.id, email }, 'User logged in');
@@ -171,8 +171,8 @@ router.post('/refresh', async (req, res, next) => {
     // Generate new access token
     const accessToken = jwt.sign(
       { userId: user.id, email: user.email, isGuest: user.is_guest },
-      JWT_SECRET,
-      { expiresIn: JWT_EXPIRES_IN }
+      JWT_SECRET as jwt.Secret,
+      { expiresIn: JWT_EXPIRES_IN } as jwt.SignOptions
     );
 
     res.json({ accessToken });
@@ -213,14 +213,14 @@ router.post('/demo', async (req, res, next) => {
 
     const accessToken = jwt.sign(
       { userId: user.id, email: user.email, isGuest: true },
-      JWT_SECRET,
-      { expiresIn: JWT_EXPIRES_IN }
+      JWT_SECRET as jwt.Secret,
+      { expiresIn: JWT_EXPIRES_IN } as jwt.SignOptions
     );
 
     const refreshToken = jwt.sign(
       { userId: user.id },
-      JWT_REFRESH_SECRET,
-      { expiresIn: JWT_REFRESH_EXPIRES_IN }
+      JWT_REFRESH_SECRET as jwt.Secret,
+      { expiresIn: JWT_REFRESH_EXPIRES_IN } as jwt.SignOptions
     );
 
     logger.info({ userId: user.id }, 'Guest user created');
