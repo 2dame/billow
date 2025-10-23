@@ -19,7 +19,34 @@ import insightsRoutes from './routes/insights';
 
 const app = express();
 const httpServer = createServer(app);
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
+
+// ============================================================
+// Environment Variables Validation
+// ============================================================
+
+const requiredEnvVars = [
+  'DATABASE_URL',
+  'JWT_SECRET',
+  'JWT_REFRESH_SECRET'
+];
+
+const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+if (missingVars.length > 0) {
+  logger.error(`❌ Missing required environment variables: ${missingVars.join(', ')}`);
+  process.exit(1);
+}
+
+logger.info('✅ Environment variables loaded:');
+logger.info(`   PORT: ${PORT}`);
+logger.info(`   NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
+logger.info(`   DATABASE_URL: ${process.env.DATABASE_URL?.substring(0, 30)}...`);
+logger.info(`   JWT_SECRET: ${process.env.JWT_SECRET ? '***configured***' : 'MISSING'}`);
+logger.info(`   JWT_REFRESH_SECRET: ${process.env.JWT_REFRESH_SECRET ? '***configured***' : 'MISSING'}`);
+logger.info(`   CLIENT_URL: ${process.env.CLIENT_URL || 'not set'}`);
+logger.info(`   ALLOWED_ORIGINS: ${process.env.ALLOWED_ORIGINS || 'http://localhost:5173'}`);
+logger.info(`   RATE_LIMIT_WINDOW_MS: ${process.env.RATE_LIMIT_WINDOW_MS || '900000'}`);
+logger.info(`   RATE_LIMIT_MAX_REQUESTS: ${process.env.RATE_LIMIT_MAX_REQUESTS || '100'}`);
 
 // ============================================================
 // Security & Parsing
@@ -55,11 +82,19 @@ const writeLimiter = rateLimit({
 
 app.get('/health', async (req, res) => {
   const dbHealthy = await checkDatabaseHealth();
-  res.status(dbHealthy ? 200 : 503).json({
-    status: dbHealthy ? 'healthy' : 'unhealthy',
-    database: dbHealthy,
-    timestamp: new Date().toISOString()
-  });
+  if (dbHealthy) {
+    res.status(200).json({
+      status: 'ok',
+      database: 'connected',
+      timestamp: new Date().toISOString()
+    });
+  } else {
+    res.status(503).json({
+      status: 'unhealthy',
+      database: 'disconnected',
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 app.use('/auth', authLimiter, authRoutes);
