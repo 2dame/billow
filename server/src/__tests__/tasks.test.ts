@@ -3,7 +3,6 @@ import app from '../testapp';
 
 describe('Tasks API', () => {
   let authToken: string;
-  let userId: string;
   let taskId: string;
 
   beforeAll(async () => {
@@ -17,7 +16,6 @@ describe('Tasks API', () => {
 
     expect(registerRes.status).toBe(201);
     authToken = registerRes.body.accessToken;
-    userId = registerRes.body.user.id;
   });
 
   describe('POST /tasks', () => {

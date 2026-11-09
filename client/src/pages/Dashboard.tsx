@@ -145,7 +145,7 @@ export default function Dashboard() {
               {loading ? (
                 <p className="text-dark-muted">Loading tasks...</p>
               ) : pendingTasks.length === 0 ? (
-                <p className="text-dark-muted">No pending tasks. You're all caught up! 🎉</p>
+                <p className="text-dark-muted">No pending tasks. You&apos;re all caught up! 🎉</p>
               ) : (
                 <div className="space-y-3">
                   {pendingTasks.map((task) => (

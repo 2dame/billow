@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function FocusMode() {
-  const [socket, setSocket] = useState<Socket | null>(null);
+  const socket = useRef<Socket | null>(null);
   const [isActive, setIsActive] = useState(false);
   const [duration, setDuration] = useState(25);
   const [elapsed, setElapsed] = useState(0);
@@ -43,23 +43,20 @@ export default function FocusMode() {
       setElapsed(e);
     });
 
-    setSocket(socketInstance);
+    socket.current = socketInstance;
 
     return () => {
+      socket.current = null;
       socketInstance.disconnect();
     };
   }, []);
 
   const startFocus = () => {
-    if (socket) {
-      socket.emit('focus:start', { duration: duration * 60 });
-    }
+    socket.current?.emit('focus:start', { duration: duration * 60 });
   };
 
   const stopFocus = () => {
-    if (socket) {
-      socket.emit('focus:stop');
-    }
+    socket.current?.emit('focus:stop');
   };
 
   const formatTime = (seconds: number) => {
@@ -111,7 +108,7 @@ export default function FocusMode() {
             </button>
           </div>
           <p className="text-dark-muted text-sm">
-            Stay focused. You've got this! 💪
+            Stay focused. You&apos;ve got this! 💪
           </p>
         </div>
       )}

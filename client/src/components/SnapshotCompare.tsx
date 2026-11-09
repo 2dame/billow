@@ -6,7 +6,7 @@ interface Snapshot {
   snapshot_date: string;
   data: {
     tasksCompleted?: number;
-    avgMood?: number;
+    avgMood?: number | string;
     [key: string]: any;
   };
   created_at: string;
@@ -70,6 +70,9 @@ export default function SnapshotCompare() {
       </div>
     );
   }
+
+  const latestMood = parseFloat(String(snapshots[0]?.data.avgMood)) || 0;
+  const previousMood = parseFloat(String(snapshots[1]?.data.avgMood)) || 0;
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
@@ -140,7 +143,7 @@ export default function SnapshotCompare() {
               <div>
                 <p className="text-dark-muted">Mood Change:</p>
                 <p className="text-lg font-semibold">
-                  {((parseFloat(snapshots[0]?.data.avgMood) || 0) - (parseFloat(snapshots[1]?.data.avgMood) || 0)).toFixed(2)}
+                  {(latestMood - previousMood).toFixed(2)}
                 </p>
               </div>
             </div>

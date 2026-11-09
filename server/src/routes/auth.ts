@@ -1,10 +1,9 @@
-import { Router, Response } from 'express';
+import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import pool from '../db';
 import logger from '../logger';
 import { validate, registerSchema, loginSchema } from '../validators';
-import { AuthRequest } from '../middleware';
 
 const router = Router();
 

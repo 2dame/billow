@@ -83,7 +83,7 @@ export default function WeeklyDigestPreview() {
           <div className="text-center py-12">
             <p className="text-dark-muted mb-4">No digests yet.</p>
             <p className="text-sm text-dark-muted">
-              Click "Generate Digest" to create your first weekly summary!
+              Click &quot;Generate Digest&quot; to create your first weekly summary!
             </p>
           </div>
         ) : (

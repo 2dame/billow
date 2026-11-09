@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 interface User {
   id: string;
@@ -17,17 +17,12 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    // Check for existing session on mount
+  const [user, setUser] = useState<User | null>(() => {
     const storedUser = localStorage.getItem('user');
     const token = localStorage.getItem('accessToken');
 
-    if (storedUser && token) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+    return storedUser && token ? JSON.parse(storedUser) : null;
+  });
 
   const login = (userData: User, accessToken: string, refreshToken: string) => {
     localStorage.setItem('user', JSON.stringify(userData));
